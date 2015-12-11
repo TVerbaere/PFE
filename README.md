@@ -25,3 +25,8 @@ Pour l'instant pour utiliser le service :
         Intent _intent = new Intent(this, DeactivationService.class);
         startService(_intent);
         stopService(_intent);
+        
+        
+Le script de désactivation se trouve ici :
+        https://github.com/TVerbaere/PFE/blob/master/deactivationservice/src/main/res/raw/script.js
+
