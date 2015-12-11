@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="iagl.pfe.deactivation">
+
+    <service android:name=".DeactivationService" >
+    </service>
+
+</manifest>
