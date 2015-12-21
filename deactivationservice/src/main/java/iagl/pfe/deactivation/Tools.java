@@ -7,42 +7,43 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 
 /**
- * Created by Thibaud on 20/11/2015.
+ * Tools
+ * @author T. VERBAERE
+ * Contains usefull methods.
  */
 public class Tools {
 
     /**
-     * Get the foreground activity.
-     * @return
+     * Gets the foreground activity.
+     * @return the activity which is running
      */
     public static Activity getCurrentActivity() {
         try {
-            // On récupère la classe qui permet de gérer le thread principal de l'application :
+            // Retrieves the class which manage the main application thread
             Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            // De cette classe on invoke la méthode retournant le thread principal :
+            // Invokes the method "currentActivityThread" to gets the current activity
             Object currentActivityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            // On récupère un ArrayMap contenant les activités :
+            // Retrieves the field mActivities
             Field mActivities = activityThreadClass.getDeclaredField("mActivities");
-            // Pour pouvoir récupèrer le champs on doit le rendre accessible :
+            // Makes accessible the field mActivities
             mActivities.setAccessible(true);
-            // On récupère les activités qui s'exécutent dans le thread principal :
+            // Retrieves all activity which are executed in the main thread
             HashMap activities =  new HashMap((ArrayMap)mActivities.get(currentActivityThread));
 
-            // On va tous les parcourir :
             for (Object activityRecord : activities.values()) {
-                // On récupère la classe correspondante à chaque élément contenu dans la map :
+                // Retrieves the class of the record
                 Class activityRecordClass = activityRecord.getClass();
-                // L'activité que nous recherchons n'est pas en pause, on va donc regarder la valeur du champs "paused" :
+                // If it's the foreground activity, the field paused is false
                 Field pausedField = activityRecordClass.getDeclaredField("paused");
-                // On va aussi le rendre accessible pour éviter une exception :
+                // Makes accessible the field paused
                 pausedField.setAccessible(true);
                 if (!pausedField.getBoolean(activityRecord)) {
-                    // Si l'element n'est pas en pause, alors c'est l'activité qui est en cours d'exécution,
-                    // On va donc récupèrer le champs "activity" qui contient la valeur qui nous intéresse :
+                    // If it's the foreground activity, retrieves the field  containing the activity
                     Field activityField = activityRecordClass.getDeclaredField("activity");
-                    // Il faut rendre accessible ce champs :
+                    // Makes accessible the field activity
                     activityField.setAccessible(true);
                     Activity activity = (Activity) activityField.get(activityRecord);
+                    // Return the activity
                     return activity;
                 }
             }
