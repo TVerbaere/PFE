@@ -1,9 +1,11 @@
+var gui = importing("gui");
+var wifi = importing("wifi");
+
 gui.onActivity('MainActivity', function(){
-       if (!gui.isNetworkConnected()) {
-              gui.disabledMenuItemwithId('menu_save_page');
+       if (!wifi.isConnected()) {
+              gui.disabledViewwithId('button');
        }
        else {
-              gui.disabledMenuItemwithId('menu_save_page');
+              gui.enabledViewwithId('button');
        }
-
 });
