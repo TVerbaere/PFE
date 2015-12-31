@@ -1,5 +1,6 @@
-# PFE
+# PFE 
 
+[![Build Status](https://travis-ci.org/TVerbaere/PFE.svg)](https://travis-ci.org/TVerbaere/PFE)
 
 Pour l'instant pour utiliser le service :
 
