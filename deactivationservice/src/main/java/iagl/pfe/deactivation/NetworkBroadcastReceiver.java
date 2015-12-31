@@ -22,5 +22,4 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver {
         foregroundActivity.stopService(_intent);
     }
 
-
 }

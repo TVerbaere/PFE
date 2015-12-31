@@ -2,18 +2,16 @@ package iagl.pfe.deactivation;
 
 import android.app.Activity;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.v7.widget.PopupMenu;
-import android.util.Log;
-import android.view.Menu;
 
 import com.sun.script.javascript.RhinoScriptEngine;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import iagl.pfe.deactivation.factories.FacadeFactory;
 
 /**
  * Deactivation Service
@@ -43,10 +41,25 @@ public class DeactivationService extends Service {
         Reader script = retrieveScript(); // Temporary ! Gets a script only for tests
 
         try {
-            // Injects the facade instead of "gui"
-            engine.put("gui",new Facade(activity,c));
+            // Transforms the reader to a string
+            char[] arr = new char[8 * 1024];
+            StringBuilder buffer = new StringBuilder();
+            int value;
+            while ((value = script.read(arr, 0, arr.length)) != -1) {
+                buffer.append(arr, 0, value);
+            }
+            script.close();
+            String script2str = buffer.toString();
+
+            // Replaces importing(that) to self.importing(that) because we cannot replace expressions with the engine,
+            // only replace objects.
+            script2str = script2str.replaceAll("importing\\(\\\"([a-z]*)\\\"\\);","self.importing(\"$1\");");
+
+            // Injects facades instead of "self"
+            engine.put("self", new FacadeFactory(activity, c));
+
             // Evaluates script with injected facade
-            engine.eval(script);
+            engine.eval(script2str);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,8 +71,8 @@ public class DeactivationService extends Service {
     }
 
     /**
-     * Get the javascript file reader (Temporary).
-     * @return the reader of the deactivation script.
+     * Get the javascript file reader.
+     * @return
      */
     public Reader retrieveScript() {
         InputStream is = getResources().openRawResource(R.raw.script);
