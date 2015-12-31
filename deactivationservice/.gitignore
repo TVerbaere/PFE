@@ -1,5 +1,5 @@
 /build
-*/*.iml
+*.iml
 gradlew
 gradlew.bat
 /gradle
