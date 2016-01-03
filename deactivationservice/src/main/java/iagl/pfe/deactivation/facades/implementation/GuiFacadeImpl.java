@@ -49,6 +49,10 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
     /**
      * Gets the view with an ID passed as parameter.
      * @param id the id of the view to return
+     * @return the view corresponding to the id.
+     *
+     * The return of this method is an Object. Indeed, this method is called in a Javascript script.
+     * So the type "View" isn't compatible and we have to convert the view to an "Object".
      */
     public Object viewById(String id) {
         // If the id starts with "@+id", delete the subsequence to find view with getRessources().
