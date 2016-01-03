@@ -1,26 +1,15 @@
 package iagl.pfe.deactivation.facades;
 
-import android.bluetooth.BluetoothAdapter;
-
 /**
- * Facade for BlueThooth
+ * Interface of the Facade for BlueTooth
  * @author T. VERBAERE
  */
-public class BlueToothFacade implements Facade {
-
-    /**
-     * Creates a new BlueTooth facade.
-     */
-    public BlueToothFacade() {
-
-    }
+public interface BluetoothFacade {
 
     /**
      * Tests if the bluetooth is activated.
      * @return a boolean, true if bluetooth is activated otherwise false
      */
-    public boolean isOn(){
-        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-        return btAdapter != null && btAdapter.isEnabled();
-    }
+    public boolean isOn();
+
 }

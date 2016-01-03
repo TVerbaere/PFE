@@ -5,12 +5,12 @@ import android.app.Activity;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
-import iagl.pfe.deactivation.facades.BatteryFacade;
-import iagl.pfe.deactivation.facades.BlueToothFacade;
+import iagl.pfe.deactivation.facades.implementation.BatteryFacadeImpl;
+import iagl.pfe.deactivation.facades.implementation.BlueToothFacadeImpl;
 import iagl.pfe.deactivation.facades.Facade;
-import iagl.pfe.deactivation.facades.GPSFacade;
-import iagl.pfe.deactivation.facades.GuiFacade;
-import iagl.pfe.deactivation.facades.WifiFacade;
+import iagl.pfe.deactivation.facades.implementation.GPSFacadeImpl;
+import iagl.pfe.deactivation.facades.implementation.GuiFacadeImpl;
+import iagl.pfe.deactivation.facades.implementation.WifiFacadeImpl;
 
 /**
  * Facade Factory
@@ -45,19 +45,19 @@ public class FacadeFactory {
 
         // Returns the adapted facade
         if (facadename.equals("gui"))
-            facadeUsed =  new GuiFacade(this.activity, this.context);
+            facadeUsed =  new GuiFacadeImpl(this.activity, this.context);
 
         if (facadename.equals("wifi"))
-            facadeUsed = new WifiFacade(this.activity);
+            facadeUsed = new WifiFacadeImpl(this.activity);
 
         if (facadename.equals("gps"))
-            facadeUsed = new GPSFacade(this.activity);
+            facadeUsed = new GPSFacadeImpl(this.activity);
 
         if (facadename.equals("bluetooth"))
-            facadeUsed = new BlueToothFacade();
+            facadeUsed = new BlueToothFacadeImpl();
 
         if (facadename.equals("battery"))
-            return new BatteryFacade(this.activity);
+            return new BatteryFacadeImpl(this.activity);
 
         // convert JAVA object to JavaScript object
         Object jsObj = Context.javaToJS(facadeUsed, scope);
