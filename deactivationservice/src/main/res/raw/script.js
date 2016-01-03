@@ -1,11 +1,13 @@
 var gui = importing("gui");
 var wifi = importing("wifi");
 
+gui.viewById("@+id/button").setEnabled(true);
+
 gui.onActivity('MainActivity', function(){
        if (!wifi.isConnected()) {
-              gui.disabledViewwithId('button');
+              gui.viewById("@+id/button").setEnabled(false);  // same : gui.viewById("button").setEnabled(false);
        }
        else {
-              gui.enabledViewwithId('button');
+              gui.viewById("@+id/button").setEnabled(true);
        }
 });

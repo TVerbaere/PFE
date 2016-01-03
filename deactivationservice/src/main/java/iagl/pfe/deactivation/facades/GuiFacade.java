@@ -1,6 +1,7 @@
 package iagl.pfe.deactivation.facades;
 
 import android.app.Activity;
+import android.view.View;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
@@ -43,40 +44,26 @@ public class GuiFacade implements Facade{
     }
 
     /**
-     * Disables an item in foreground activity which id is passed as parameter.
-     * @param id the id of the item to disable
+     * Gets the view with an ID passed as parameter.
+     * @param id the id of the view to return
      */
-    public void disabledElementwithId(String id) {
-        // Retrieves the true id in ressources
+    public Object viewById(String id) {
+        // If the id starts with "@+id", delete the subsequence to find view with getRessources().
+        if (id.startsWith("@+id/"))
+            id = id.substring(5);
+
+        // Initializes the scope.
+        ScriptableObject scope = context.initStandardObjects();
+        View v = null;
+
+        // Retrieves the true id in ressources.
         int idt = activity.getResources().getIdentifier(id, "id", activity.getPackageName());
-        // If the id is found, disable item
+        // If the id is found, enable item.
         if ( idt != 0 )
-            activity.findViewById(idt).setEnabled(false);
+            v = activity.findViewById(idt);
+
+        // convert JAVA object to JavaScript object
+        return Context.javaToJS(v, scope);
     }
 
-    /**
-     * Enables an item in foreground activity which id is passed as parameter.
-     * @param id the id of the item to enable
-     */
-    public void enabledElementwithId(String id) {
-        // Retrieves the true id in ressources
-        int idt = activity.getResources().getIdentifier(id, "id", activity.getPackageName());
-        // If the id is found, enable item
-        if ( idt != 0 )
-            activity.findViewById(idt).setEnabled(true);
-    }
-
-    /*
-    public void disabledMenuItemwithId(String itemname, String menuname) {
-        NIY
-        int idm = activity.getResources().getIdentifier(menuname, "menu", activity.getPackageName());
-        int idt = activity.getResources().getIdentifier(itemname, "id", activity.getPackageName());
-    }
-
-    public void enabledMenuItemwithId(String itemname, String menuname) {
-        NIY
-        int idm = activity.getResources().getIdentifier(menuname, "menu", activity.getPackageName());
-        int idt = activity.getResources().getIdentifier(itemname, "id", activity.getPackageName());
-    }
-    */
 }
