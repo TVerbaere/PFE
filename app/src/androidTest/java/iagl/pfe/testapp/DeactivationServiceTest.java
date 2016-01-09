@@ -91,6 +91,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
     }
 
+    /*
     @SmallTest
     public void testGuiFacade_OnActivity_NotForegroundActivity() throws InterruptedException {
         // Initially, the button and the checkbox are enabled :
@@ -108,6 +109,6 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
         assertTrue(mActivity.findViewById(R.id.box).isEnabled());
 
-    }
+    }*/
 
 }
