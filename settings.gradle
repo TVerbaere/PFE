@@ -1,1 +1,1 @@
-include ':deactivationservice'
+include ':app', ':deactivationservice'
