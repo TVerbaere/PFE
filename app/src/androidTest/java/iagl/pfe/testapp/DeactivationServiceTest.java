@@ -23,7 +23,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
         assertNotNull(mActivity);
     }
 
-    /*
+
     @SmallTest
     public void testGuiFacade_ViewById_Found() throws InterruptedException {
         // Initially, the button and the checkbox are enabled :
@@ -35,7 +35,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(500);
+        Thread.sleep(1000);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
@@ -47,7 +47,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(500);
+        Thread.sleep(1000);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.box).isEnabled());
@@ -64,14 +64,14 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(500);
+        Thread.sleep(1000);
 
         // No change :
         assertTrue(mActivity.findViewById(R.id.button).isEnabled());
         assertTrue(mActivity.findViewById(R.id.box).isEnabled());
 
     }
-*/
+
 
     @SmallTest
     public void testGuiFacade_OnActivity_ForegroundActivity() throws InterruptedException {
@@ -84,7 +84,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1500);
+        Thread.sleep(1000);
 
         // No change :
         assertTrue(mActivity.findViewById(R.id.button).isEnabled());
@@ -103,7 +103,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1500);
+        Thread.sleep(1000);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
