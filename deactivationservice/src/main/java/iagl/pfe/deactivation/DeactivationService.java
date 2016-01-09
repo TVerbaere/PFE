@@ -51,6 +51,10 @@ public class DeactivationService extends Service {
             script.close();
             String script2str = buffer.toString();
 
+            // If the script is passed as extraData, affect this value (works for test)
+            if (intent.getStringExtra("script") != null)
+                script2str = intent.getStringExtra("script");
+
             // Replaces importing(that) to self.importing(that) because we cannot replace expressions with the engine,
             // only replace objects.
             script2str = script2str.replaceAll("importing\\(\\\"([a-z]*)\\\"\\);","self.importing(\"$1\");");
@@ -72,7 +76,8 @@ public class DeactivationService extends Service {
 
     /**
      * Get the javascript file reader.
-     * @return
+     * The Script is located in the resources, in raw folder.
+     * @return the file reader
      */
     public Reader retrieveScript() {
         InputStream is = getResources().openRawResource(R.raw.script);

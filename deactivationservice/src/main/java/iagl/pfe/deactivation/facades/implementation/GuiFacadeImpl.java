@@ -69,7 +69,7 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
         if ( idt != 0 )
             v = activity.findViewById(idt);
 
-        // convert JAVA object to JavaScript object
+        // convert JAVA object to JavaScript object (JSON)
         return Context.javaToJS(v, scope);
     }
 

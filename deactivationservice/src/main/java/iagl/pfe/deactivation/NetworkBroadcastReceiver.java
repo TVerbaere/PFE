@@ -19,7 +19,7 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver {
         Intent _intent = new Intent(foregroundActivity, DeactivationService.class);
 
         foregroundActivity.startService(_intent);
-        foregroundActivity.stopService(_intent);
+
     }
 
 }
