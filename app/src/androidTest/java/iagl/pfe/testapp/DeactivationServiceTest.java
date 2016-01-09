@@ -71,7 +71,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
         assertTrue(mActivity.findViewById(R.id.box).isEnabled());
 
     }
-
+*/
 
     @SmallTest
     public void testGuiFacade_OnActivity_ForegroundActivity() throws InterruptedException {
@@ -84,7 +84,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(500);
+        Thread.sleep(1500);
 
         // No change :
         assertTrue(mActivity.findViewById(R.id.button).isEnabled());
@@ -103,12 +103,12 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(500);
+        Thread.sleep(1500);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
         assertTrue(mActivity.findViewById(R.id.box).isEnabled());
 
     }
-    */
+
 }
