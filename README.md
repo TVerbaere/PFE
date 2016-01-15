@@ -20,9 +20,8 @@ How to add the deactivation service in an application ?
             </intent-filter>
         </receiver>
 ```
-```java
 - Then, in the onCreate function in activities, add these lines :
-
+```java
         Intent _intent = new Intent(this, DeactivationService.class);
         startService(_intent);
 ```
