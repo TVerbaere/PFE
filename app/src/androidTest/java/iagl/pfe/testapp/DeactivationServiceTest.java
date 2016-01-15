@@ -35,7 +35,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
@@ -47,7 +47,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.box).isEnabled());
@@ -64,7 +64,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // No change :
         assertTrue(mActivity.findViewById(R.id.button).isEnabled());
@@ -84,7 +84,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // No change :
         assertTrue(mActivity.findViewById(R.id.button).isEnabled());
@@ -103,7 +103,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
 
         // Executing :
         mActivity.startServicewithScript(script);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
