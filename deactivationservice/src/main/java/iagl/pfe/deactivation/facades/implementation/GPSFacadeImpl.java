@@ -26,7 +26,7 @@ public class GPSFacadeImpl implements GPSFacade, Facade {
      * Tests if the GPS is enabled.
      * @return a boolean, true if the GPS is enabled otherwise false
      */
-    public boolean isGPSEnabled(){
+    public boolean isEnabled(){
         LocationManager locManager = (LocationManager) activity.getSystemService(android.content.Context.LOCATION_SERVICE);
         return locManager.isProviderEnabled( LocationManager.GPS_PROVIDER );
     }

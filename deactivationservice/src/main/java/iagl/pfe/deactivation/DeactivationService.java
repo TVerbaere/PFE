@@ -16,7 +16,7 @@ import iagl.pfe.deactivation.factories.FacadeFactory;
 /**
  * Deactivation Service
  * @author T. VERBAERE
- * Service to disable items of an Android app.
+ * Service to disable items in an Android app.
  */
 public class DeactivationService extends Service {
 
@@ -75,7 +75,7 @@ public class DeactivationService extends Service {
     }
 
     /**
-     * Get the javascript file reader.
+     * Gets the javascript file reader.
      * The Script is located in the resources, in raw folder.
      * @return the file reader
      */

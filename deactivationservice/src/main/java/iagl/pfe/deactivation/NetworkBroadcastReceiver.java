@@ -14,7 +14,7 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // Gets the foreground activity and start the service
+        // Gets the foreground activity and starts the service
         Activity foregroundActivity = Tools.getCurrentActivity();
         Intent _intent = new Intent(foregroundActivity, DeactivationService.class);
 
