@@ -1,5 +1,6 @@
 package iagl.pfe.testapp;
 
+import android.support.v7.widget.Toolbar;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 
@@ -108,6 +109,25 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
         // The button is disabled :
         assertFalse(mActivity.findViewById(R.id.button).isEnabled());
         assertTrue(mActivity.findViewById(R.id.box).isEnabled());
+
+    }
+
+    @SmallTest
+    public void testGuiFacade_menuItemById() throws InterruptedException {
+
+        Toolbar toolbar = (Toolbar)mActivity.findViewById(R.id.toolbar);
+        // Initially, the item is enabled
+        assertTrue(toolbar.getMenu().findItem(R.id.action_settings).isEnabled());
+
+        // The tested script : we import "gui" and we try to disable the item action_settings:
+        String script = "var gui = importing(\"gui\"); var toolbar = gui.viewById(\"@+id/toolbar\"); gui.menuItemById(toolbar, \"@+id/action_settings\").setEnabled(false);";
+
+        // Executing :
+        mActivity.startServicewithScript(script);
+        Thread.sleep(2000);
+
+        // The item is disabled
+        assertFalse(toolbar.getMenu().findItem(R.id.action_settings).isEnabled());
 
     }
 

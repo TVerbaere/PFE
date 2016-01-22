@@ -1,6 +1,8 @@
 package iagl.pfe.deactivation.facades.implementation;
 
 import android.app.Activity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.mozilla.javascript.Context;
@@ -65,12 +67,35 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
 
         // Retrieves the true id in ressources.
         int idt = activity.getResources().getIdentifier(id, "id", activity.getPackageName());
-        // If the id is found, enable item.
+        // If the id is found, find the view
         if ( idt != 0 )
             v = activity.findViewById(idt);
 
         // convert JAVA object to JavaScript object (JSON)
         return Context.javaToJS(v, scope);
+    }
+
+    public Object menuItemById(Object toolbar,String iditem) {
+
+        // If the iditem starts with "@+id", delete the subsequence to find view with getRessources().
+        if (iditem.startsWith("@+id/"))
+            iditem = iditem.substring(5);
+
+        // Initializes the scope.
+        ScriptableObject scope = context.initStandardObjects();
+        MenuItem v = null;
+
+        // Retrieves the true id in ressources.
+        int miditem = activity.getResources().getIdentifier(iditem, "id", activity.getPackageName());
+
+        // If these ids are found, find the view.
+        if ( miditem != 0 && toolbar instanceof Toolbar) {
+            v = ((Toolbar)toolbar).getMenu().findItem(miditem);
+        }
+
+        // convert JAVA object to JavaScript object (JSON)
+        return Context.javaToJS(v, scope);
+
     }
 
 }

@@ -66,7 +66,7 @@ public class DeactivationService extends Service {
             engine.eval(script2str);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         // Exits context

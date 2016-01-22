@@ -26,4 +26,16 @@ public interface GuiFacade {
      */
     public Object viewById(String id);
 
+    /**
+     * Gets the item located in a menu (toolbar) with an ID passed as parameter.
+     * The toolbar must be specified as parameter.
+     * @param toolbar the toolbar which contains the item
+     * @param iditem the id of the item to return
+     * @return the view corresponding to the item.
+     *
+     * The return of this method is an Object. Indeed, this method is called in a Javascript script.
+     * So the type "View" isn't compatible and we have to convert the view to an "Object".
+     */
+    public Object menuItemById(Object toolbar,String iditem);
+
 }
