@@ -116,6 +116,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
     public void testGuiFacade_menuItemById() throws InterruptedException {
 
         Toolbar toolbar = (Toolbar)mActivity.findViewById(R.id.toolbar);
+        
         // Initially, the item is enabled
         assertTrue(toolbar.getMenu().findItem(R.id.action_settings).isEnabled());
 
