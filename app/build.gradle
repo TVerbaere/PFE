@@ -22,6 +22,15 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.uphyca.gradle:gradle-android-aspectj-plugin:0.9.+'
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -29,3 +38,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile project(':deactivationservice')
 }
+
+apply plugin: 'android-aspectj'

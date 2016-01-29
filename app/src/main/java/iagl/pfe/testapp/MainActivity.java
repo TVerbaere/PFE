@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewConfiguration;
-
-import java.lang.reflect.Field;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import iagl.pfe.deactivation.DeactivationService;
 
@@ -25,14 +28,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        CheckBox box = (CheckBox)findViewById(R.id.box);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        box.setOnClickListener(new CheckBox.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View arg0) {
+
+                registerForContextMenu(arg0);
+                openContextMenu(arg0);
+
             }
+
         });
 
     }
@@ -45,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_context, menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -53,10 +67,33 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, R.string.action_settings, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.action_exit) {
+            Toast.makeText(this, R.string.action_exit, Toast.LENGTH_SHORT).show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_second) {
+            Toast.makeText(this, R.string.action_second, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.action_first) {
+            Toast.makeText(this, R.string.action_first, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onContextItemSelected(item);
+
     }
 
     public void startServicewithScript(String script) {

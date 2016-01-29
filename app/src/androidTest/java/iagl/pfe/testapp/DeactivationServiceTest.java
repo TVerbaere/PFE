@@ -113,15 +113,15 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
     }
 
     @SmallTest
-    public void testGuiFacade_menuItemById() throws InterruptedException {
+    public void testGuiFacade_getmenuItemById() throws InterruptedException {
 
         Toolbar toolbar = (Toolbar)mActivity.findViewById(R.id.toolbar);
-        
+
         // Initially, the item is enabled
         assertTrue(toolbar.getMenu().findItem(R.id.action_settings).isEnabled());
 
         // The tested script : we import "gui" and we try to disable the item action_settings:
-        String script = "var gui = importing(\"gui\"); var toolbar = gui.viewById(\"@+id/toolbar\"); gui.menuItemById(toolbar, \"@+id/action_settings\").setEnabled(false);";
+        String script = "var gui = importing(\"gui\"); gui.onActivity('MainActivity', function(){ gui.onMenuOpened( function(){ gui.getmenuItemById(\"@+id/action_settings\").setEnabled(false); gui.getmenuItemById(\"@+id/action_first\").setEnabled(false); }); });";
 
         // Executing :
         mActivity.startServicewithScript(script);
