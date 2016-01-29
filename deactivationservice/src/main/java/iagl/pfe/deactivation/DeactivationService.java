@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.v7.internal.view.menu.MenuBuilder;
 
 import com.sun.script.javascript.RhinoScriptEngine;
 
@@ -12,6 +13,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import iagl.pfe.deactivation.factories.FacadeFactory;
+import iagl.pfe.deactivation.util.MenuOpened;
+import iagl.pfe.deactivation.util.Tools;
 
 /**
  * Deactivation Service
@@ -27,7 +30,6 @@ public class DeactivationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         // Retrieves the foreground activity
         Activity activity = Tools.getCurrentActivity();
 

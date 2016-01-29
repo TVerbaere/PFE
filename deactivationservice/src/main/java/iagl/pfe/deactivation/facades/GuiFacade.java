@@ -17,6 +17,12 @@ public interface GuiFacade {
     public void onActivity(String activity_name,Function function);
 
     /**
+     * Executes the function passed as parameter only if a menu is opened.
+     * @param function the function to execute
+     */
+    public void onMenuOpened(Function function);
+
+    /**
      * Gets the view with an ID passed as parameter.
      * @param id the id of the view to return
      * @return the view corresponding to the id.
@@ -27,15 +33,14 @@ public interface GuiFacade {
     public Object viewById(String id);
 
     /**
-     * Gets the item located in a menu (toolbar) with an ID passed as parameter.
-     * The toolbar must be specified as parameter.
-     * @param toolbar the toolbar which contains the item
+     * Gets the item located in a opened menu with an ID passed as parameter.
+     * If no menu is opened, this function returns a null object.
      * @param iditem the id of the item to return
      * @return the view corresponding to the item.
      *
      * The return of this method is an Object. Indeed, this method is called in a Javascript script.
      * So the type "View" isn't compatible and we have to convert the view to an "Object".
      */
-    public Object menuItemById(Object toolbar,String iditem);
+    public Object getmenuItemById(String iditem);
 
 }

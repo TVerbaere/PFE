@@ -1,4 +1,4 @@
-package iagl.pfe.deactivation;
+package iagl.pfe.deactivation.util;
 
 import android.app.Activity;
 import android.util.ArrayMap;

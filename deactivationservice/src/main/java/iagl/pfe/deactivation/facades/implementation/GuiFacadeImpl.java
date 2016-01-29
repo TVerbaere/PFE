@@ -12,6 +12,8 @@ import org.mozilla.javascript.ScriptableObject;
 
 import iagl.pfe.deactivation.facades.Facade;
 import iagl.pfe.deactivation.facades.GuiFacade;
+import iagl.pfe.deactivation.util.MenuOpened;
+import iagl.pfe.deactivation.util.Placebo;
 
 /**
  * Facade for Graphical User Interface
@@ -49,6 +51,20 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
     }
 
     /**
+     * Executes the function passed as parameter only if a menu is opened.
+     * @param function the function to execute
+     */
+    public void onMenuOpened(Function function) {
+        // If a menu is opened, then executes the function
+        if (MenuOpened.menuOpened != null) {
+            // Initializes and calls function
+            ScriptableObject scope = context.initStandardObjects();
+            Scriptable that = context.newObject(scope);
+            function.call(context, scope, that, new Object[]{});
+        }
+    }
+
+    /**
      * Gets the view with an ID passed as parameter.
      * @param id the id of the view to return
      * @return the view corresponding to the id.
@@ -63,38 +79,47 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
 
         // Initializes the scope.
         ScriptableObject scope = context.initStandardObjects();
-        View v = null;
 
         // Retrieves the true id in ressources.
         int idt = activity.getResources().getIdentifier(id, "id", activity.getPackageName());
         // If the id is found, find the view
-        if ( idt != 0 )
-            v = activity.findViewById(idt);
+        if ( idt != 0 ) {
+            View v = activity.findViewById(idt);
 
-        // convert JAVA object to JavaScript object (JSON)
-        return Context.javaToJS(v, scope);
+            if (v != null) {
+                // convert JAVA object (the view) to JavaScript object (JSON)
+                return Context.javaToJS(v, scope);
+            }
+        }
+
+        // converts JAVA object (an object without effects) to JavaScript object (JSON)
+        return Context.javaToJS(new Placebo(), scope);
     }
 
-    public Object menuItemById(Object toolbar,String iditem) {
-
+    public Object getmenuItemById(String iditem) {
+        System.out.println(MenuOpened.menuOpened);
         // If the iditem starts with "@+id", delete the subsequence to find view with getRessources().
         if (iditem.startsWith("@+id/"))
             iditem = iditem.substring(5);
 
         // Initializes the scope.
         ScriptableObject scope = context.initStandardObjects();
-        MenuItem v = null;
 
         // Retrieves the true id in ressources.
         int miditem = activity.getResources().getIdentifier(iditem, "id", activity.getPackageName());
 
-        // If these ids are found, find the view.
-        if ( miditem != 0 && toolbar instanceof Toolbar) {
-            v = ((Toolbar)toolbar).getMenu().findItem(miditem);
+        // if a menu is stocked so return the item.
+        if (MenuOpened.menuOpened != null) {
+            MenuItem mi = MenuOpened.menuOpened.findItem(miditem);
+            if (mi != null) {
+                // converts JAVA object (the menuItem) to JavaScript object (JSON)
+                MenuOpened.menuOpened = null;
+                return Context.javaToJS(mi, scope);
+            }
         }
 
-        // convert JAVA object to JavaScript object (JSON)
-        return Context.javaToJS(v, scope);
+        // converts JAVA object (an object without effects) to JavaScript object (JSON)
+        return Context.javaToJS(new Placebo(), scope);
 
     }
 
