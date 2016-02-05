@@ -33,8 +33,7 @@
             class="iagl.pfe.deactivation.NetworkBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="iagl.pfe.ON_CREATE" />
-                <action android:name="iagl.pfe.ON_MENU_OPENED" />
+                <action android:name="iagl.pfe.START_SERVICE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
                 <action android:name="android.location.PROVIDERS_CHANGED" />

@@ -17,12 +17,6 @@ public interface GuiFacade {
     public void onActivity(String activity_name,Function function);
 
     /**
-     * Executes the function passed as parameter only if a menu is opened.
-     * @param function the function to execute
-     */
-    public void onMenuOpened(Function function);
-
-    /**
      * Gets the view with an ID passed as parameter.
      * @param id the id of the view to return
      * @return the view corresponding to the id.

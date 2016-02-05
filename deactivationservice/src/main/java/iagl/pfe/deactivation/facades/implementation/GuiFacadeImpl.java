@@ -1,7 +1,6 @@
 package iagl.pfe.deactivation.facades.implementation;
 
 import android.app.Activity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -12,8 +11,8 @@ import org.mozilla.javascript.ScriptableObject;
 
 import iagl.pfe.deactivation.facades.Facade;
 import iagl.pfe.deactivation.facades.GuiFacade;
-import iagl.pfe.deactivation.util.MenuOpened;
 import iagl.pfe.deactivation.util.Placebo;
+import iagl.pfe.deactivation.util.ToDisabled;
 
 /**
  * Facade for Graphical User Interface
@@ -43,20 +42,6 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
     public void onActivity(String activity_name,Function function) {
         // Compares activity_name and foreground activty name
         if ( activity.getLocalClassName().equals(activity_name) ) {
-            // Initializes and calls function
-            ScriptableObject scope = context.initStandardObjects();
-            Scriptable that = context.newObject(scope);
-            function.call(context, scope, that, new Object[]{});
-        }
-    }
-
-    /**
-     * Executes the function passed as parameter only if a menu is opened.
-     * @param function the function to execute
-     */
-    public void onMenuOpened(Function function) {
-        // If a menu is opened, then executes the function
-        if (MenuOpened.menuOpened != null) {
             // Initializes and calls function
             ScriptableObject scope = context.initStandardObjects();
             Scriptable that = context.newObject(scope);
@@ -97,7 +82,7 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
     }
 
     public Object getmenuItemById(String iditem) {
-        System.out.println(MenuOpened.menuOpened);
+
         // If the iditem starts with "@+id", delete the subsequence to find view with getRessources().
         if (iditem.startsWith("@+id/"))
             iditem = iditem.substring(5);
@@ -109,11 +94,10 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
         int miditem = activity.getResources().getIdentifier(iditem, "id", activity.getPackageName());
 
         // if a menu is stocked so return the item.
-        if (MenuOpened.menuOpened != null) {
-            MenuItem mi = MenuOpened.menuOpened.findItem(miditem);
+        if (ToDisabled.menu != null) {
+            MenuItem mi = ToDisabled.menu.findItem(miditem);
             if (mi != null) {
                 // converts JAVA object (the menuItem) to JavaScript object (JSON)
-                MenuOpened.menuOpened = null;
                 return Context.javaToJS(mi, scope);
             }
         }

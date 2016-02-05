@@ -21,6 +21,15 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.uphyca.gradle:gradle-android-aspectj-plugin:0.9.+'
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -28,3 +37,5 @@ dependencies {
     compile 'org.mozilla:rhino:1.7R5'
     compile files('libs/jsr-223-1.0-pr.jar/jsr-223-1.0-pr.jar')
 }
+
+apply plugin: 'android-aspectj'

@@ -1,7 +1,11 @@
 package iagl.pfe.deactivation.util;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.ArrayMap;
+import android.view.Menu;
+
+import org.aspectj.lang.JoinPoint;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -15,6 +19,7 @@ public class Tools {
 
     /**
      * Gets the foreground activity.
+     *
      * @return the activity which is running
      */
     public static Activity getCurrentActivity() {
@@ -28,7 +33,7 @@ public class Tools {
             // Makes accessible the field mActivities
             mActivities.setAccessible(true);
             // Retrieves all activity which are executed in the main thread
-            HashMap activities =  new HashMap((ArrayMap)mActivities.get(currentActivityThread));
+            HashMap activities = new HashMap((ArrayMap) mActivities.get(currentActivityThread));
 
             for (Object activityRecord : activities.values()) {
                 // Retrieves the class of the record
@@ -53,6 +58,27 @@ public class Tools {
         }
 
         return null;
+    }
+
+    /**
+     *
+     * @param jp
+     */
+    public static void treatJoinPoint(JoinPoint jp) {
+
+        if(jp.getArgs().length==2)
+
+        {
+            Menu m = (Menu) jp.getArgs()[1];
+            if (m != null) {
+                ToDisabled.menu = m;
+            }
+        }
+
+        Activity a = (Activity) jp.getThis();
+        Intent intent = new Intent();
+        intent.setAction("iagl.pfe.START_SERVICE");
+        a.sendBroadcast(intent);
     }
 
 }

@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import iagl.pfe.deactivation.factories.FacadeFactory;
-import iagl.pfe.deactivation.util.MenuOpened;
 import iagl.pfe.deactivation.util.Tools;
 
 /**

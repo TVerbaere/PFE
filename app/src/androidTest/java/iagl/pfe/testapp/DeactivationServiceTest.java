@@ -121,7 +121,7 @@ public class DeactivationServiceTest extends ActivityInstrumentationTestCase2<Ma
         assertTrue(toolbar.getMenu().findItem(R.id.action_settings).isEnabled());
 
         // The tested script : we import "gui" and we try to disable the item action_settings:
-        String script = "var gui = importing(\"gui\"); gui.onActivity('MainActivity', function(){ gui.onMenuOpened( function(){ gui.getmenuItemById(\"@+id/action_settings\").setEnabled(false); gui.getmenuItemById(\"@+id/action_first\").setEnabled(false); }); });";
+        String script = "var gui = importing(\"gui\"); gui.onActivity('MainActivity', function(){ gui.getmenuItemById(\"@+id/action_settings\").setEnabled(false) });";
 
         // Executing :
         mActivity.startServicewithScript(script);

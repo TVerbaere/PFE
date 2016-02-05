@@ -7,8 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class MenuOpened {
+public class ToDisabled {
 
-    public static Menu menuOpened = null;
+    public static Menu menu = null;
 
 }
