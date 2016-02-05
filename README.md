@@ -6,25 +6,60 @@ How to add the deactivation service in an application ?
 
 - First, add in the MANIFEST these lines :
 ```java
-        <service class="iagl.pfe.deactivation.DeactivationService"
-            android:name="iagl.pfe.deactivation.DeactivationService" >
-        </service>
+    <service class="iagl.pfe.deactivation.DeactivationService"
+        android:name="iagl.pfe.deactivation.DeactivationService" >
+    </service>
 
-        <receiver class="iagl.pfe.deactivation.NetworkBroadcastReceiver"
-            android:name="iagl.pfe.deactivation.NetworkBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
-                <action android:name="android.location.PROVIDERS_CHANGED" />
-            </intent-filter>
-        </receiver>
+    <receiver class="iagl.pfe.deactivation.NetworkBroadcastReceiver"
+        android:name="iagl.pfe.deactivation.NetworkBroadcastReceiver">
+        <intent-filter>
+            <action android:name="iagl.pfe.START_SERVICE" />
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
+            <action android:name="android.location.PROVIDERS_CHANGED" />
+        </intent-filter>
+    </receiver>
 ```
-- Then, in the onCreate function in activities, add these lines :
+- Then, add this aspect in your application :
 ```java
-        Intent _intent = new Intent(this, DeactivationService.class);
-        startService(_intent);
+    import org.aspectj.lang.JoinPoint;
+    import org.aspectj.lang.annotation.*;
+
+    import iagl.pfe.deactivation.util.Tools;
+
+    @Aspect
+    public class DeactivationAspect {
+
+            @Pointcut("execution(* *.onCreate(..))")
+            public void onCreateEntryPoint() {
+            }
+
+            @Pointcut("call(* *.inflate(..))")
+            public void inflateMenuEntryPoint() {
+            }
+
+            @AfterReturning(value= "inflateMenuEntryPoint() || onCreateEntryPoint()")
+            public void startService(JoinPoint joinPoint) {
+                Tools.treatJoinPoint(joinPoint);
+            }
+
+    }
 ```
+- You should also add the dependency for AspectJ in build.gradle :
+```java
+    buildscript {
+        repositories {
+            jcenter()
+        }
+        dependencies {
+            classpath 'com.uphyca.gradle:gradle-android-aspectj-plugin:0.9.+'
+        }
+    }
+
+    apply plugin: 'android-aspectj'
+```
+
 The deactivation script is located [here](https://github.com/TVerbaere/PFE/blob/master/deactivationservice/src/main/res/raw/script.js)
 
 Examples of script :
@@ -35,6 +70,14 @@ Examples of script :
     gui.viewById("@+id/button").setEnabled(false);
 
     // OR gui.viewById("button").setEnabled(false);
+```
+- To disable a menuItem :
+```javascript
+    var gui = importing("gui");
+
+    gui.getmenuItemById("@+id/action_settings").setEnabled(false);
+
+    // OR gui.viewById("action_settings").setEnabled(false);
 ```
 - To disable a view in a specific activity :
 ```javascript
