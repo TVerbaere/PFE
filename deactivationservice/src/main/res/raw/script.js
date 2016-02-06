@@ -2,11 +2,11 @@ var gui = importing("gui");
 var wifi = importing("wifi");
 
 gui.onActivity('MainActivity', function(){
-       /*
+
        gui.getmenuItemById("@+id/action_settings").setEnabled(false);
        gui.getmenuItemById("@+id/action_first").setEnabled(false);
 
-
+/*
        gui.onMenuOpened( function(){
 
               gui.getmenuItemById("@+id/action_settings").setEnabled(false);

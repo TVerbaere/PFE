@@ -2,6 +2,7 @@ package iagl.pfe.deactivation.util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.util.ArrayMap;
 import android.view.Menu;
 
@@ -33,7 +34,15 @@ public class Tools {
             // Makes accessible the field mActivities
             mActivities.setAccessible(true);
             // Retrieves all activity which are executed in the main thread
-            HashMap activities = new HashMap((ArrayMap) mActivities.get(currentActivityThread));
+
+            HashMap activities = null;
+
+            if (Build.VERSION.SDK_INT >= 19) {
+                activities = new HashMap((ArrayMap)mActivities.get(currentActivityThread));
+            }
+            else {
+                activities = (HashMap)mActivities.get(currentActivityThread);
+            }
 
             for (Object activityRecord : activities.values()) {
                 // Retrieves the class of the record
@@ -61,8 +70,8 @@ public class Tools {
     }
 
     /**
-     *
-     * @param jp
+     * Performs the processing according to the joinpoint passed as parameter.
+     * @param jp the joinPoint to treat
      */
     public static void treatJoinPoint(JoinPoint jp) {
 
