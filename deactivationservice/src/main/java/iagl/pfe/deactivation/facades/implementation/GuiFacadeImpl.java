@@ -12,7 +12,7 @@ import org.mozilla.javascript.ScriptableObject;
 import iagl.pfe.deactivation.facades.Facade;
 import iagl.pfe.deactivation.facades.GuiFacade;
 import iagl.pfe.deactivation.util.Placebo;
-import iagl.pfe.deactivation.util.ToDisabled;
+import iagl.pfe.deactivation.util.Tools;
 
 /**
  * Facade for Graphical User Interface
@@ -94,8 +94,8 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
         int miditem = activity.getResources().getIdentifier(iditem, "id", activity.getPackageName());
 
         // if a menu is stocked so return the item.
-        if (ToDisabled.menu != null) {
-            MenuItem mi = ToDisabled.menu.findItem(miditem);
+        if (Tools.menu != null) {
+            MenuItem mi = Tools.menu.findItem(miditem);
             if (mi != null) {
                 // converts JAVA object (the menuItem) to JavaScript object (JSON)
                 return Context.javaToJS(mi, scope);

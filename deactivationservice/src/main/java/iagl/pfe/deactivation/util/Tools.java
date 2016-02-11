@@ -18,6 +18,8 @@ import java.util.HashMap;
  */
 public class Tools {
 
+    public static Menu menu = null;
+
     /**
      * Gets the foreground activity.
      *
@@ -74,16 +76,16 @@ public class Tools {
      * @param jp the joinPoint to treat
      */
     public static void treatJoinPoint(JoinPoint jp) {
-
-        if(jp.getArgs().length==2)
-
-        {
+        // If the joinPoint contains two arguments, then we want to disable a menu (call : inflate)
+        if(jp.getArgs().length==2) {
+            // The menu is the second argument
             Menu m = (Menu) jp.getArgs()[1];
             if (m != null) {
-                ToDisabled.menu = m;
+                menu = m;
             }
         }
 
+        // Sends START_SERVICE Action
         Activity a = (Activity) jp.getThis();
         Intent intent = new Intent();
         intent.setAction("iagl.pfe.START_SERVICE");

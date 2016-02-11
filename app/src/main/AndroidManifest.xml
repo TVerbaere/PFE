@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,20 @@
         <service
             android:name="iagl.pfe.deactivation.DeactivationService"
             class="iagl.pfe.deactivation.DeactivationService" >
+        </service>
+
+        <service
+            android:name="iagl.pfe.deactivation.GUIEventNotification"
+            android:enabled="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:label="SampleAccessibilityService" >
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibillity_service_config" />
         </service>
 
         <receiver
