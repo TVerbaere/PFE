@@ -12,7 +12,6 @@ import iagl.pfe.deactivation.util.Tools;
  * Accessibility Service
  * @author T. VERBAERE
  * Service to be notified of GUI Events.
- * In progress ...
  */
 public class GUIEventNotification extends AccessibilityService {
 
@@ -40,13 +39,16 @@ public class GUIEventNotification extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        // Stores the accessibility event
         EventsSafeguard.storeEvent(Tools.getCurrentActivity(), getEventType(event), event.getClassName().toString(), getEventText(event));
 
+        // Log :
         Log.v(this.getClass().getName(), String.format(
                 "GUIEventNotification: [type] %s [class] %s [activity] %s [text] %s",
                 EventsSafeguard.getLastAccessibilityEvent().getEventType(), EventsSafeguard.getLastAccessibilityEvent().getClassName(),
                 EventsSafeguard.getLastAccessibilityEvent().getSource(), EventsSafeguard.getLastAccessibilityEvent().getEventText()));
 
+        // We can also start the deactivations service in this method...
     }
 
     @Override

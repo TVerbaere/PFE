@@ -6,8 +6,23 @@ How to add the deactivation service in an application ?
 
 - First, add in the MANIFEST these lines :
 ```java
+
     <service class="iagl.pfe.deactivation.DeactivationService"
         android:name="iagl.pfe.deactivation.DeactivationService" >
+    </service>
+
+    <service
+        android:name="iagl.pfe.deactivation.GUIEventNotification"
+        android:enabled="true"
+        android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+        android:label="SampleAccessibilityService" >
+        <intent-filter>
+            <action android:name="android.accessibilityservice.AccessibilityService" />
+        </intent-filter>
+
+        <meta-data
+            android:name="android.accessibilityservice"
+            android:resource="@xml/accessibillity_service_config" />
     </service>
 
     <receiver class="iagl.pfe.deactivation.NetworkBroadcastReceiver"
@@ -21,6 +36,12 @@ How to add the deactivation service in an application ?
         </intent-filter>
     </receiver>
 ```
+
+- Add this line in the tag appilcation
+```java
+    android:name="iagl.pfe.deactivation.CrashEventSender"
+```
+
 - Then, add this aspect in your application :
 ```java
     import org.aspectj.lang.JoinPoint;
@@ -46,6 +67,7 @@ How to add the deactivation service in an application ?
 
     }
 ```
+
 - You should also add the dependency for AspectJ in build.gradle :
 ```java
     buildscript {
@@ -60,7 +82,7 @@ How to add the deactivation service in an application ?
     apply plugin: 'android-aspectj'
 ```
 
-The deactivation script is located [here](https://github.com/TVerbaere/PFE/blob/master/deactivationservice/src/main/res/raw/script.js)
+Actually the deactivation script is located [here](https://github.com/TVerbaere/PFE/blob/master/deactivationservice/src/main/res/raw/script.js)
 
 Examples of script :
 - To disable a view :
