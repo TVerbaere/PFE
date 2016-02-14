@@ -78,7 +78,7 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
         }
 
         // converts JAVA object (an object without effects) to JavaScript object (JSON)
-        return Context.javaToJS(new Placebo(), scope);
+        return Context.javaToJS(new Placebo(activity), scope);
     }
 
     public Object getmenuItemById(String iditem) {
@@ -103,7 +103,7 @@ public class GuiFacadeImpl implements GuiFacade, Facade {
         }
 
         // converts JAVA object (an object without effects) to JavaScript object (JSON)
-        return Context.javaToJS(new Placebo(), scope);
+        return Context.javaToJS(new Placebo(activity), scope);
 
     }
 

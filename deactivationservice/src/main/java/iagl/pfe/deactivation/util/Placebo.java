@@ -1,18 +1,17 @@
 package iagl.pfe.deactivation.util;
 
+import android.content.Context;
+import android.view.View;
+
 /**
  * Placebo Object
  * @author T. VERBAERE
- * Object returned when an item isn't found. His comportment is null.
+ * Null View returned when a view isn't found. His comportment is totally null.
  * Avoids Exceptions in deactivation script.
  */
-public class Placebo {
+public class Placebo extends View {
 
-    public Placebo() {
-
-    }
-
-    public void setEnabled(boolean enabled) {
-
+    public Placebo(Context context) {
+        super(context);
     }
 }

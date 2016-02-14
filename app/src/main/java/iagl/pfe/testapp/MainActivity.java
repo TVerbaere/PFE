@@ -84,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_first) {
+            // This is a crash :
+            String[] strings = { "a", "b", "c" };
+            for (int i = 0; i <= strings.length; i++) {
+                String x = strings[i];
+            }
+
             Toast.makeText(this, R.string.action_first, Toast.LENGTH_SHORT).show();
             return true;
         }

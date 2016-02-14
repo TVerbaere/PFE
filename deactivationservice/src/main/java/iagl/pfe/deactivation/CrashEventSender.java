@@ -3,7 +3,7 @@ package iagl.pfe.deactivation;
 import android.app.Application;
 import android.util.Log;
 
-import iagl.pfe.deactivation.util.LastEventSafeguard;
+import iagl.pfe.deactivation.util.EventsSafeguard;
 
 /**
  * CrashEventSender
@@ -16,17 +16,20 @@ public class CrashEventSender extends Application {
     public void onCreate() {
         super.onCreate();
 
-        System.out.println(this.getClass().getName());
-
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable ex) {
 
                 Log.v(this.getClass().getName(), String.format(
-                        "GUIEventNotification: [type] %s [class] %s [activity] %s [text] %s",
-                        LastEventSafeguard.getEventTypeSafeguard(), LastEventSafeguard.getElementClassSafeguard(),
-                        LastEventSafeguard.getActivitySafeguard(), LastEventSafeguard.getElementTextSafeguard()));
-                Log.v(this.getClass().getName(), ex.getStackTrace().toString());
+                        "LastGUIEvent: [type] %s [class] %s [activity] %s [text] %s",
+                        EventsSafeguard.getLastAccessibilityEvent().getEventType(), EventsSafeguard.getLastAccessibilityEvent().getClassName(),
+                        EventsSafeguard.getLastAccessibilityEvent().getSource(), EventsSafeguard.getLastAccessibilityEvent().getEventText()));
+
+                for (StackTraceElement ste : ex.getStackTrace()) {
+                    Log.v("Exception", ste.toString());
+                }
+
+                //System.exit(2);
             }
         });
     }

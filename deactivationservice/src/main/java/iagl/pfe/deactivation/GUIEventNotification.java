@@ -1,10 +1,11 @@
 package iagl.pfe.deactivation;
 
 import android.accessibilityservice.AccessibilityService;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
-import iagl.pfe.deactivation.util.LastEventSafeguard;
+import iagl.pfe.deactivation.util.EventsSafeguard;
 import iagl.pfe.deactivation.util.Tools;
 
 /**
@@ -39,13 +40,13 @@ public class GUIEventNotification extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-
-        LastEventSafeguard.storeEvent(getEventType(event), event.getClassName().toString(), getEventText(event), Tools.getCurrentActivity());
+        EventsSafeguard.storeEvent(Tools.getCurrentActivity(), getEventType(event), event.getClassName().toString(), getEventText(event));
 
         Log.v(this.getClass().getName(), String.format(
                 "GUIEventNotification: [type] %s [class] %s [activity] %s [text] %s",
-                LastEventSafeguard.getEventTypeSafeguard(), LastEventSafeguard.getElementClassSafeguard(),
-                LastEventSafeguard.getActivitySafeguard(), LastEventSafeguard.getElementTextSafeguard()));
+                EventsSafeguard.getLastAccessibilityEvent().getEventType(), EventsSafeguard.getLastAccessibilityEvent().getClassName(),
+                EventsSafeguard.getLastAccessibilityEvent().getSource(), EventsSafeguard.getLastAccessibilityEvent().getEventText()));
+
     }
 
     @Override
