@@ -1,8 +1,12 @@
 var gui = importing("gui");
-var wifi = importing("wifi");
+var history = importing("history");
 
 gui.onActivity('MainActivity', function(){
+
 /*
+       if (history.clicked("Button", "MainActivity"))
+              gui.viewById("box").setEnabled(false);
+
        gui.getmenuItemById("@+id/action_settings").setEnabled(false);
        gui.getmenuItemById("@+id/action_first").setEnabled(false);
 

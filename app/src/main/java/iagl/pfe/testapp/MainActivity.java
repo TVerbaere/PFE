@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import iagl.pfe.deactivation.DeactivationService;
@@ -23,6 +25,26 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button button = (Button)findViewById(R.id.buttonID);
+
+        button.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                EditText Edittext = (EditText)findViewById(R.id.textEdit);
+
+                if (Edittext.getText().toString().equals("toto")) {
+                    // This is a crash :
+                    String[] strings = { "a", "b", "c" };
+                    for (int i = 0; i <= strings.length; i++) {
+                        String x = strings[i];
+                    }
+                }
+
+            }
+        });
 
         CheckBox box = (CheckBox)findViewById(R.id.box);
 

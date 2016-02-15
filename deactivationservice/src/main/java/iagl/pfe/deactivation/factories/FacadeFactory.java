@@ -5,11 +5,13 @@ import android.app.Activity;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
+import iagl.pfe.deactivation.facades.HistoryFacade;
 import iagl.pfe.deactivation.facades.implementation.BatteryFacadeImpl;
 import iagl.pfe.deactivation.facades.implementation.BlueToothFacadeImpl;
 import iagl.pfe.deactivation.facades.Facade;
 import iagl.pfe.deactivation.facades.implementation.GPSFacadeImpl;
 import iagl.pfe.deactivation.facades.implementation.GuiFacadeImpl;
+import iagl.pfe.deactivation.facades.implementation.HistoryFacadeImpl;
 import iagl.pfe.deactivation.facades.implementation.WifiFacadeImpl;
 
 /**
@@ -57,7 +59,10 @@ public class FacadeFactory {
             facadeUsed = new BlueToothFacadeImpl();
 
         if (facadename.equals("battery"))
-            return new BatteryFacadeImpl(this.activity);
+            facadeUsed = new BatteryFacadeImpl(this.activity);
+
+        if (facadename.equals("history"))
+            facadeUsed = new HistoryFacadeImpl();
 
         // convert JAVA object to JavaScript object
         Object jsObj = Context.javaToJS(facadeUsed, scope);

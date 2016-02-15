@@ -1,7 +1,8 @@
 package iagl.pfe.deactivation;
 
 import android.accessibilityservice.AccessibilityService;
-import android.os.Parcelable;
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
@@ -39,8 +40,9 @@ public class GUIEventNotification extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        Activity a = Tools.getCurrentActivity();
         // Stores the accessibility event
-        EventsSafeguard.storeEvent(Tools.getCurrentActivity(), getEventType(event), event.getClassName().toString(), getEventText(event));
+        EventsSafeguard.storeEvent(a, getEventType(event), event.getClassName().toString(), getEventText(event));
 
         // Log :
         Log.v(this.getClass().getName(), String.format(
@@ -48,7 +50,16 @@ public class GUIEventNotification extends AccessibilityService {
                 EventsSafeguard.getLastAccessibilityEvent().getEventType(), EventsSafeguard.getLastAccessibilityEvent().getClassName(),
                 EventsSafeguard.getLastAccessibilityEvent().getSource(), EventsSafeguard.getLastAccessibilityEvent().getEventText()));
 
-        // We can also start the deactivations service in this method...
+        // We can also start the deactivation service in this method...
+        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_CLICKED ||
+                event.getEventType() == AccessibilityEvent.TYPE_VIEW_LONG_CLICKED ||
+                event.getEventType() == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED ||
+                event.getEventType() == AccessibilityEvent.TYPE_VIEW_SELECTED) {
+
+            Intent intent = new Intent();
+            intent.setAction("iagl.pfe.START_SERVICE");
+            a.sendBroadcast(intent);
+        }
     }
 
     @Override
