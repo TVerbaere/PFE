@@ -51,10 +51,10 @@ public class GUIEventNotification extends AccessibilityService {
                 EventsSafeguard.getLastAccessibilityEvent().getSource(), EventsSafeguard.getLastAccessibilityEvent().getEventText()));
 
         // We can also start the deactivation service in this method...
-        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_CLICKED ||
+        if (a != null && (event.getEventType() == AccessibilityEvent.TYPE_VIEW_CLICKED ||
                 event.getEventType() == AccessibilityEvent.TYPE_VIEW_LONG_CLICKED ||
                 event.getEventType() == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED ||
-                event.getEventType() == AccessibilityEvent.TYPE_VIEW_SELECTED) {
+                event.getEventType() == AccessibilityEvent.TYPE_VIEW_SELECTED)) {
 
             Intent intent = new Intent();
             intent.setAction("iagl.pfe.START_SERVICE");
