@@ -157,6 +157,6 @@ For example : <br/>
         gui.viewById("@+id/button2").setEnabled(true);
     }
 ```
-It's not possible to access at the id of the element clicked (or editText changed) in AccessibilityEvent. In an AccessibilityEvent, we can only access to a text. For a button it's possible to use this data. But for an EditText, the text change then this data isn't usable.
+It's not possible to access to the id of the element clicked (or editText changed) in AccessibilityEvent. In an AccessibilityEvent, we can only access to a text. For a button, it's possible to use this data. But for an EditText, the text changes then this data isn't usable.
 <br/>
-2) The UncaughtExceptionHandler stop the app before execute the AccessibilityService for the last time. So the last event isn't stored in the list of events.
+2) The UncaughtExceptionHandler stops the app before execute the AccessibilityService for the last time. So the last event isn't stored in the list of events.
