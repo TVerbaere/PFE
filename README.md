@@ -141,3 +141,17 @@ Examples of script :
     var bluetooth_on = bluetooth.isOn();
 
 ```
+#Progress
+2 issues :<br/>
+1) The HistoryFacade isn't finished. This facade must be used to disable an element according to a scenario.
+For example : <br/>
+```javascript
+    var history = importing("history");
+    
+    if (history.wrote("toto", "@+id/edittext", "MainActivity") && history.clicked("@+id/button", "MainActivity")) {
+        gui.viewById("@+id/button").setEnabled(false);
+    }
+    else {
+    
+    }
+```
