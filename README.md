@@ -141,3 +141,22 @@ Examples of script :
     var bluetooth_on = bluetooth.isOn();
 
 ```
+#Progress
+2 issues :
+<br/>
+1) The HistoryFacade isn't finished. This facade must be used to disable an element according to a scenario.
+For example : <br/>
+```javascript
+    var history = importing("history");
+    var gui = importing("gui");
+    
+    if (history.wrote("toto", "@+id/edittext", "MainActivity") && history.clicked("@+id/button", "MainActivity")) {
+        gui.viewById("@+id/button2").setEnabled(false);
+    }
+    else {
+        gui.viewById("@+id/button2").setEnabled(true);
+    }
+```
+It's not possible to access to the id of the element clicked (or editText changed) in AccessibilityEvent. In an AccessibilityEvent, we can only access to a text. For a button, it's possible to use this data. But for an EditText, the text changes then this data isn't usable.
+<br/>
+2) The UncaughtExceptionHandler stops the app before execute the AccessibilityService for the last time. So the last event isn't stored in the list of events.
