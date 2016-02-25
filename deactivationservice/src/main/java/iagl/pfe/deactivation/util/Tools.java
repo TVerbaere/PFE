@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.ArrayMap;
 import android.view.Menu;
+import android.view.MenuInflater;
 
 import org.aspectj.lang.JoinPoint;
 
@@ -76,8 +77,14 @@ public class Tools {
      * @param jp the joinPoint to treat
      */
     public static void treatJoinPoint(JoinPoint jp) {
+
+        if (!(jp.getTarget() instanceof MenuInflater) && !(jp.getThis() instanceof Activity)) {
+            return;
+        }
+
         // If the joinPoint contains two arguments, then we want to disable a menu (call : inflate)
         if(jp.getArgs().length==2) {
+
             // The menu is the second argument
             Menu m = (Menu) jp.getArgs()[1];
             if (m != null) {

@@ -8,11 +8,11 @@ import iagl.pfe.deactivation.util.Tools;
 @Aspect
 public class DeactivationAspect {
 
-        @Pointcut("execution(* *.onCreate(..))")
+        @Pointcut("execution(void *.onCreate(android.os.Bundle))")
         public void onCreateEntryPoint() {
         }
 
-        @Pointcut("call(* *.inflate(..))")
+        @Pointcut("call(void *.inflate(..))")
         public void inflateMenuEntryPoint() {
         }
 
